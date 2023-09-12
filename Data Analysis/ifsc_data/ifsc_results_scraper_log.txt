@@ -24,3 +24,5 @@
 2023-09-12 14:38:30,383:INFO:json columns in str type needing unpacking are ['rounds']
 2023-09-12 14:39:06,998:INFO:unique dtypes of each column are {'Unnamed: 0': {<class 'int'>}, 'category_round_id': {<class 'int'>}, 'round_name': {<class 'str'>}, 'score': {<class 'float'>}, 'combined_stages': {<class 'str'>}, 'athlete_id': {<class 'int'>}, 'rank': {<class 'int'>}, 'firstname': {<class 'str'>}, 'lastname': {<class 'str'>}, 'paraclimbing_sport_class': {<class 'float'>}, 'sport_class_status': {<class 'float'>}, 'country': {<class 'str'>}, 'federation_id': {<class 'int'>}, 'comp_name': {<class 'str'>}}
 2023-09-12 14:39:07,001:INFO:json columns in str type needing unpacking are ['combined_stages']
+
+Done!

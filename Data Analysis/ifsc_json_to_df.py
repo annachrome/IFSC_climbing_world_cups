@@ -97,8 +97,11 @@ def normalize_depth(data, json_columns):
         
         for json_col in json_columns:
 
-            if json_col not in data.columns or not row[json_col] or not cell_is_json(str(row[json_col])):
-                df_output = pd.concat([df_output, pd.DataFrame([row])], ignore_index=True)
+            #if json_col not in data.columns or not row[json_col] or not cell_is_json(str(row[json_col])):
+            # if json_col not in data.columns or not cell_is_json(str(row[json_col])):
+            #     df_output = pd.concat([df_output, pd.DataFrame([row])], ignore_index=True)
+            if pd.isna(row[json_col]):
+                continue
             else:
                 try:
                     row_str = row[json_col].replace("True", "true").replace("False", "false").replace("None","null").replace("\\xa","_")
@@ -106,7 +109,6 @@ def normalize_depth(data, json_columns):
                     row_json = json.loads(row_str)
 
                     df_temp = pd.json_normalize(row_json)
-
                     row_data = row.drop(json_col)
                     
                     for col, value in row_data.items():
@@ -146,21 +148,31 @@ def normalize_depth(data, json_columns):
     return df_output
 
 def main():
-    category = 'Wboulderlead'
+    category = 'Wboulder'
 
     #1 json to csv unpacking Results dict -> {category}_initial.csv
     # category_json = pd.read_json(dir + category + '.json') #e.g. Wcombined.json
     # data = ifsc_json_to_csv(category_json, dir + category + '_initial.csv')
     # print(data.head())
 
-    #2 unpacking Rounds dict -> {category}_midway.csv
+    #2 unpacking Rounds dict -> {category}_1.csv
     # data = pd.read_csv(dir + category + "_initial.csv")
 
-    #3 unpacking Ascents dict from _midway.csv-> {category}.csv
-    data = pd.read_csv(dir + category + "_midway.csv")
+    #3 unpacking Ascents dict from _1.csv-> {category}.csv
+    data = pd.read_csv(dir + category + "_2.csv")
 
+    #4 for Wboulder, Wboulderlead more unpacking
+    # data = pd.read_csv(dir + category + "_2.csv")
+    #5
+    # data = pd.read_csv(dir + category + "_3_cleaned.csv")
+
+    #6 checking
+    # data = pd.read_csv(dir + category + ".csv")
 
     #checks for all data
+    data.replace("[]", "", inplace=True)
+    
+
     print(data.head())
     unique_dtypes_dict = {
         col: unique_datatypes(data, col) for col in data.columns
@@ -176,18 +188,14 @@ def main():
     # only child columns
     json_columns = [col for col in all_json_columns if not any(c.startswith(f"{col}.") for c in all_json_columns)]
     logging.info(f"json columns in str type needing unpacking are {json_columns}")
+    print(f"json columns in str type needing unpacking are {json_columns}")
 
+    # EDIT OUTPUT PATH AS NEEDED
+    # output_df = normalize_depth(data, json_columns)
 
+    # output_df.to_csv(dir + category + '_2.csv')
 
-    #2
-    # round_depth_2 = normalize_depth(data, json_columns)
-    # round_depth_2.to_csv(dir + category + '_midway.csv')
-
-
-    # #3
-    ascents_depth_3 = normalize_depth(data, json_columns)
-    print(ascents_depth_3.head())
-    ascents_depth_3.to_csv(dir + category + '.csv')
+    logging.info("csv written")
 
 if __name__ == "__main__":
     main()

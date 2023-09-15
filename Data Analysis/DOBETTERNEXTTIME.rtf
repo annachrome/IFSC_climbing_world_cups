@@ -1,0 +1,68 @@
+{\rtf1\ansi\ansicpg1252\cocoartf2709
+\cocoatextscaling0\cocoaplatform0{\fonttbl\f0\fnil\fcharset0 HelveticaNeue;\f1\fnil\fcharset0 Monaco;}
+{\colortbl;\red255\green255\blue255;\red42\green49\blue64;\red245\green245\blue246;\red0\green0\blue0;
+\red14\green18\blue29;\red39\green129\blue201;\red255\green255\blue255;\red235\green16\blue47;\red20\green152\blue106;
+\red156\green155\blue176;\red68\green69\blue86;}
+{\*\expandedcolortbl;;\cssrgb\c21569\c25490\c31765;\cssrgb\c96863\c96863\c97255;\cssrgb\c0\c0\c0;
+\cssrgb\c6667\c9412\c15294;\cssrgb\c18039\c58431\c82745;\cssrgb\c100000\c100000\c100000;\cssrgb\c94902\c17255\c23922;\cssrgb\c0\c65098\c49020;
+\cssrgb\c67451\c67451\c74510;\cssrgb\c33725\c34510\c41176;}
+\paperw11900\paperh16840\margl1440\margr1440\vieww24000\viewh16080\viewkind0
+\deftab720
+\pard\pardeftab720\partightenfactor0
+
+\f0\fs32 \cf2 \cb3 \expnd0\expndtw0\kerning0
+\outl0\strokewidth0 \strokec2 Using 
+\f1\fs21 \cf0 \strokec4 pd.concat
+\f0\fs32 \cf2 \strokec2  inside a loop is inefficient due to the repeated memory reallocation and copying.\
+A more efficient approach would be to accumulate DataFrames in a list and concatenate them all at once at the end.\
+\
+\
+\pard\pardeftab720\sa300\partightenfactor0
+
+\fs24 \cf2 \cb3 \strokec2 use something like 
+\f1\fs21 \cf5 \strokec5 apply
+\f0\fs24 \cf2 \strokec2 .\cb1 \
+\cb3 However, remember that 
+\f1\fs21 \cf5 \strokec5 apply
+\f0\fs24 \cf2 \strokec2  is not fully vectorized. It's more of a "pseudo-vectorized" method because under the hood it's still looping through rows (or columns, depending on the axis). It's generally faster than 
+\f1\fs21 \cf5 \strokec5 iterrows()
+\f0\fs24 \cf2 \strokec2 , but slower than true vectorized operations.\cb1 \
+\pard\pardeftab720\sa120\partightenfactor0
+\cf5 \cb3 \strokec5 Example:
+\f1\fs21 \cf2 \cb1 \strokec2 \
+\pard\pardeftab720\partightenfactor0
+\cf6 \cb4 \strokec6 def\cf7 \strokec7  \cf8 \strokec8 unpack_json\cf7 \strokec7 (cell): \cf6 \strokec6 try\cf7 \strokec7 : \cf6 \strokec6 return\cf7 \strokec7  json.loads(cell) \cf6 \strokec6 except\cf7 \strokec7 : \cf6 \strokec6 return\cf7 \strokec7  cell df[\cf9 \strokec9 'json_col'\cf7 \strokec7 ] = df[\cf9 \strokec9 'json_col'\cf7 \strokec7 ].apply(unpack_json)\cf2 \cb1 \strokec2 \
+
+\f0\fs24 \cb3 Lastly, in cases where vectorization is not possible or too complex, consider using other libraries like 
+\f1\fs21 \cf5 \strokec5 numba
+\f0\fs24 \cf2 \strokec2  or 
+\f1\fs21 \cf5 \strokec5 cython
+\f0\fs24 \cf2 \strokec2  to speed up Python loops, or using 
+\f1\fs21 \cf5 \strokec5 dask
+\f0\fs24 \cf2 \strokec2  for operations on very large datasets.\cb1 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs32 \cf10 \strokec10 \
+\
+\
+\pard\pardeftab720\partightenfactor0
+
+\fs21 \cf0 \strokec4 \
+\pard\pardeftab720\qc\partightenfactor0
+
+\fs28 \cf11 \cb3 \strokec11 \
+\pard\pardeftab720\partightenfactor0
+
+\fs24 \cf0 \cb1 \strokec4 \
+\pard\pardeftab720\partightenfactor0
+
+\fs32 \cf2 \cb3 \strokec2 \
+\
+\
+Consider using other libraries like 
+\f1\fs21 \cf0 \strokec4 numba
+\f0\fs32 \cf2 \strokec2  or 
+\f1\fs21 \cf0 \strokec4 cython
+\f0\fs32 \cf2 \strokec2  to speed up Python loops, or using 
+\f1\fs21 \cf0 \strokec4 dask
+\f0\fs32 \cf2 \strokec2  for operations on very large datasets.}

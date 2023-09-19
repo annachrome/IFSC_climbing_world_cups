@@ -24,4 +24,4 @@
 
 2. regression
 
-3. create time sensitive cumulative % tops,  %finals made, %semis variables for predictive analysis
+3. create time sensitive cumulative `% tops,  %finals made, %semis variables for predictive analysis

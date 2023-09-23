@@ -36,6 +36,6 @@
 The WCombined dataset can be disregarded for our purposes since it simply combines points from lead and boulder from the 2021 Moscow World Championships. 
 The detailed lead and boulder results are already recorded in the respective datasets of Wlead and Wboulder.
 
-However, the Lead & Boulder World Championships from Bern 2023 was separate from the Boulder and Lead World Championships respectively. Hence each competition has distinct results in the Wboulder, Wlead and Wboulderlead datasets. I have appended the boulder results from Wboulderlead to Wboulder, and appended the lead results from Wboulderlead to Wlead.
+However, the Lead & Boulder World Championships from Bern 2023 was separate from the Boulder and Lead World Championships respectively. It contains only semifinal and final results since qualifications were determined by __. Hence each competition has distinct results in the Wboulder, Wlead and Wboulderlead datasets and they have been aggregated in the dataset __.
 
 For Wboulder and Wlead, cleaned _3.csv before further normalizing json columns for efficiency

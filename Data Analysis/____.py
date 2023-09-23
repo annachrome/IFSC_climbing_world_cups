@@ -10,3 +10,4 @@ category = "Wcombined"
 data = pd.read_csv(dir + category + ".csv")
 
 print(data["stage_rank"])
+

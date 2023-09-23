@@ -5,7 +5,8 @@ import logging
 from datetime import datetime
 
 def main():
-    category = "Wlead"
+    category = "Wlead
+    "
 
     dir = '/Users/apple/Documents/PROGRAMMING/IFSC_climbing_world_cups/Data Analysis/ifsc_data/'
 

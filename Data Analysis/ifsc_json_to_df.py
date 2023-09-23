@@ -1,4 +1,4 @@
-# convert jsons to pd df
+# convert jsons to pd df then outputs as csv's
 
 import pandas as pd
 import json
